@@ -1,1 +1,78 @@
+#include<iostream>
+using namespace std;
 
+int main()
+{
+    float a, b, c, altura, angulo;
+    float area;
+    string validez, tipo_lados, tipo_angulo, mensaje;
+
+    cout<<"Ingrese lado 1: ";
+    cin>>a;
+
+    cout<<"Ingrese lado 2: ";
+    cin>>b;
+
+    cout<<"Ingrese lado 3: ";
+    cin>>c;
+
+    cout<<"Ingrese altura: ";
+    cin>>altura;
+
+    cout<<"Ingrese angulo: ";
+    cin>>angulo;
+
+    if(a + b > c && a + c > b && b + c > a)
+    {
+        validez = "Valido";
+
+        if(a == b && b == c)
+        {
+            tipo_lados = "Equilatero";
+        }
+        else if(a == b || a == c || b == c)
+        {
+            tipo_lados = "Isosceles";
+        }
+        else
+        {
+            tipo_lados = "Escaleno";
+        }
+
+        if(angulo == 90)
+        {
+            tipo_angulo = "Rectangulo";
+        }
+        else if(angulo < 90)
+        {
+            tipo_angulo = "Acutangulo";
+        }
+        else
+        {
+            tipo_angulo = "Obtusangulo";
+        }
+
+        area = (a * altura) / 2;
+
+        if(altura > a || altura > b || altura > c)
+        {
+            mensaje = "Altura inconsistente";
+        }
+        else
+        {
+            mensaje = "Altura correcta";
+        }
+
+        cout<<"Validez: "<<validez<<endl;
+        cout<<"Tipo por lados: "<<tipo_lados<<endl;
+        cout<<"Tipo por angulo: "<<tipo_angulo<<endl;
+        cout<<"Area: "<<area<<endl;
+        cout<<"Estado de altura: "<<mensaje<<endl;
+    }
+    else
+    {
+        cout<<"El triangulo no es valido"<<endl;
+    }
+
+    return 0;
+}
