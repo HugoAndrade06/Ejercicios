@@ -1,0 +1,72 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    float lectura_anterior, lectura_actual;
+    int tipo_vivienda, habitantes;
+    int artefactos, deuda;
+
+    float consumo, costo_base, ajuste = 0, total, consumo_persona;
+    string mensaje;
+
+    cout<<"Lectura anterior: ";
+    cin>>lectura_anterior;
+
+    cout<<"Lectura actual: ";
+    cin>>lectura_actual;
+
+    cout<<"Tipo vivienda (1 social, 2 normal): ";
+    cin>>tipo_vivienda;
+
+    cout<<"Habitantes: ";
+    cin>>habitantes;
+
+    cout<<"Tiene artefactos (1 si, 0 no): ";
+    cin>>artefactos;
+
+    cout<<"Tiene deuda (1 si, 0 no): ";
+    cin>>deuda;
+
+    if(lectura_actual < lectura_anterior)
+    {
+        cout<<"Dato invalido"<<endl;
+    }
+    else
+    {
+        consumo = lectura_actual - lectura_anterior;
+
+        if(consumo <= 100)
+            costo_base = consumo * 0.10;
+        else if(consumo <= 300)
+            costo_base = consumo * 0.12;
+        else
+            costo_base = consumo * 0.15;
+
+        if(deuda == 1)
+            ajuste = costo_base * 0.10;
+
+        if(tipo_vivienda == 1 && consumo < 80)
+            ajuste = ajuste - (costo_base * 0.15);
+
+        total = costo_base + ajuste;
+
+        consumo_persona = consumo / habitantes;
+
+        if(consumo_persona > 50)
+            mensaje = "Consumo excesivo";
+        else
+            mensaje = "Consumo normal";
+
+        if(artefactos == 1 && consumo > 300)
+            mensaje = "Riesgo de sobrefacturacion";
+
+        cout<<"Consumo: "<<consumo<<endl;
+        cout<<"Costo base: "<<costo_base<<endl;
+        cout<<"Ajuste: "<<ajuste<<endl;
+        cout<<"Total: "<<total<<endl;
+        cout<<mensaje<<endl;
+    }
+
+    return 0;
+}
