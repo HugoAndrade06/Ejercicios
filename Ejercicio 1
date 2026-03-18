@@ -1,1 +1,59 @@
+#include<iostream>
+using namespace std;
 
+int main()
+{
+    int minutos_tarde, faltas;
+    int credencial, pertenece;
+
+    cout<<"Minutos tarde: ";
+    cin>>minutos_tarde;
+
+    cout<<"Faltas: ";
+    cin>>faltas;
+
+    cout<<"Tiene credencial (1 si, 0 no): ";
+    cin>>credencial;
+
+    cout<<"Pertenece al curso (1 si, 0 no): ";
+    cin>>pertenece;
+
+    if(credencial == 0)
+    {
+        cout<<"No ingresa";
+    }
+    else
+    {
+        if(pertenece == 0)
+        {
+            cout<<"No ingresa";
+        }
+        else
+        {
+            if(faltas >= 5)
+            {
+                cout<<"No ingresa";
+            }
+            else
+            {
+                if(minutos_tarde > 10)
+                {
+                    cout<<"No ingresa";
+                }
+                else
+                {
+                    if(faltas >= 3 || minutos_tarde > 0)
+                    {
+                        cout<<"Advertencia";
+                    }
+                    else
+                    {
+                        cout<<"Ingresa";
+                    }
+                }
+            }
+        }
+    }
+
+    return 0;
+}
