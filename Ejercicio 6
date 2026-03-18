@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int estudiantes, dias, transporte_tipo;
+    float costo_hospedaje_dia;
+    int alimentacion, descuento_inst, coordinador;
+
+    float costo_transporte, costo_hospedaje, costo_alimentacion;
+    float descuento, total, total_estudiante;
+    float precio_transporte;
+    int personas_pago;
+
+    string recomendacion;
+
+    cout<<"Numero de estudiantes: ";
+    cin>>estudiantes;
+
+    cout<<"Dias: ";
+    cin>>dias;
+
+    cout<<"Tipo transporte (1 o 2): ";
+    cin>>transporte_tipo;
+
+    cout<<"Costo hospedaje por dia: ";
+    cin>>costo_hospedaje_dia;
+
+    cout<<"Incluye alimentacion (1 si, 0 no): ";
+    cin>>alimentacion;
+
+    cout<<"Descuento institucional (1 si, 0 no): ";
+    cin>>descuento_inst;
+
+    cout<<"Hay coordinador (1 si, 0 no): ";
+    cin>>coordinador;
+
+    personas_pago = estudiantes;
+
+    if(coordinador == 1)
+        personas_pago = estudiantes - 1;
+
+    if(transporte_tipo == 1)
+        precio_transporte = 10;
+    else
+        precio_transporte = 15;
+
+    if(estudiantes > 20)
+        precio_transporte = precio_transporte - 2;
+
+    costo_transporte = personas_pago * precio_transporte;
+
+    costo_hospedaje = estudiantes * dias * costo_hospedaje_dia;
+
+    if(dias > 3)
+        costo_hospedaje = costo_hospedaje * 0.90;
+
+    if(alimentacion == 1)
+        costo_alimentacion = estudiantes * dias * 5;
+    else
+        costo_alimentacion = 0;
+
+    total = costo_transporte + costo_hospedaje + costo_alimentacion;
+
+    if(descuento_inst == 1 && total > 500)
+        descuento = total * 0.10;
+    else
+        descuento = 0;
+
+    total = total - descuento;
+
+    total_estudiante = total / estudiantes;
+
+    if(total_estudiante > 50)
+        recomendacion = "Viaje no recomendable";
+    else
+        recomendacion = "Viaje recomendable";
+
+    cout<<"Transporte: "<<costo_transporte<<endl;
+    cout<<"Hospedaje: "<<costo_hospedaje<<endl;
+    cout<<"Alimentacion: "<<costo_alimentacion<<endl;
+    cout<<"Descuento: "<<descuento<<endl;
+    cout<<"Total: "<<total<<endl;
+    cout<<"Por estudiante: "<<total_estudiante<<endl;
+    cout<<recomendacion<<endl;
+
+    return 0;
+}
