@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int monto, saldo;
+    int b20, b10, b5, b1;
+    int usar20=0, usar10=0, usar5=0, usar1=0;
+    int total_cajero;
+    string mensaje;
+
+    cout<<"Monto a retirar: ";
+    cin>>monto;
+
+    cout<<"Saldo usuario: ";
+    cin>>saldo;
+
+    cout<<"Billetes de 20: ";
+    cin>>b20;
+
+    cout<<"Billetes de 10: ";
+    cin>>b10;
+
+    cout<<"Billetes de 5: ";
+    cin>>b5;
+
+    cout<<"Billetes de 1: ";
+    cin>>b1;
+
+    total_cajero = b20*20 + b10*10 + b5*5 + b1;
+
+    if(monto <= 0)
+    {
+        mensaje = "Monto invalido";
+    }
+    else if(monto > saldo || monto > total_cajero)
+    {
+        mensaje = "No procede";
+    }
+    else
+    {
+        usar20 = monto / 20;
+        if(usar20 > b20)
+            usar20 = b20;
+        monto = monto - usar20*20;
+
+        usar10 = monto / 10;
+        if(usar10 > b10)
+            usar10 = b10;
+        monto = monto - usar10*10;
+
+        usar5 = monto / 5;
+        if(usar5 > b5)
+            usar5 = b5;
+        monto = monto - usar5*5;
+
+        usar1 = monto;
+        if(usar1 > b1)
+            usar1 = b1;
+        monto = monto - usar1;
+
+        if(monto == 0)
+            mensaje = "Operacion exitosa";
+        else
+            mensaje = "No se puede entregar exacto";
+    }
+
+    cout<<"Billetes de 20: "<<usar20<<endl;
+    cout<<"Billetes de 10: "<<usar10<<endl;
+    cout<<"Billetes de 5: "<<usar5<<endl;
+    cout<<"Billetes de 1: "<<usar1<<endl;
+    cout<<"Saldo usuario: "<<saldo<<endl;
+    cout<<"Efectivo cajero: "<<total_cajero<<endl;
+    cout<<mensaje<<endl;
+
+    return 0;
+}
