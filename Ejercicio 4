@@ -1,0 +1,69 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int hojas;
+    int color, docente, estudiante, nocturno, anillado;
+
+    float subtotal, descuento = 0, recargo = 0, valor_anillado, total;
+
+    cout<<"Ingrese numero de hojas: ";
+    cin>>hojas;
+
+    cout<<"Es a color? (1 si, 0 no): ";
+    cin>>color;
+
+    cout<<"Es docente? (1 si, 0 no): ";
+    cin>>docente;
+
+    cout<<"Es estudiante? (1 si, 0 no): ";
+    cin>>estudiante;
+
+    cout<<"Horario nocturno? (1 si, 0 no): ";
+    cin>>nocturno;
+
+    cout<<"Desea anillado? (1 si, 0 no): ";
+    cin>>anillado;
+
+    if(hojas <= 20)
+        subtotal = hojas * 0.05;
+    else if(hojas <= 100)
+        subtotal = hojas * 0.04;
+    else
+        subtotal = hojas * 0.03;
+
+    if(color == 1)
+        subtotal = subtotal + (hojas * 0.02);
+
+    if(docente == 1)
+        descuento = subtotal * 0.05;
+
+    if(estudiante == 1 && hojas > 50)
+    {
+        if(subtotal * 0.08 > descuento)
+            descuento = subtotal * 0.08;
+    }
+
+    if(nocturno == 1)
+        recargo = subtotal * 0.10;
+
+    if(anillado == 1)
+    {
+        valor_anillado = 2;
+        if(hojas > 100)
+            valor_anillado = valor_anillado - (valor_anillado * 0.20);
+    }
+    else
+        valor_anillado = 0;
+
+    total = subtotal - descuento + recargo + valor_anillado;
+
+    cout<<"Subtotal: "<<subtotal<<endl;
+    cout<<"Descuento: "<<descuento<<endl;
+    cout<<"Recargo: "<<recargo<<endl;
+    cout<<"Anillado: "<<valor_anillado<<endl;
+    cout<<"Total a pagar: "<<total<<endl;
+
+    return 0;
+}
