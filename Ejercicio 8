@@ -1,0 +1,76 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    float n1, n2, n3, asistencia, promedio;
+    int proyecto, plagio;
+
+    string estado, obs_disciplina = "Sin novedad", obs_rendimiento = "Normal";
+    int cont = 0;
+
+    cout<<"Nota 1: ";
+    cin>>n1;
+
+    cout<<"Nota 2: ";
+    cin>>n2;
+
+    cout<<"Nota 3: ";
+    cin>>n3;
+
+    cout<<"Asistencia: ";
+    cin>>asistencia;
+
+    cout<<"Entrego proyecto (1 si, 0 no): ";
+    cin>>proyecto;
+
+    cout<<"Cometio plagio (1 si, 0 no): ";
+    cin>>plagio;
+
+    promedio = (n1 + n2 + n3) / 3;
+
+    if(plagio == 1)
+    {
+        estado = "Reprobado";
+        obs_disciplina = "Plagio detectado";
+    }
+    else
+    {
+        if(asistencia < 70)
+        {
+            estado = "Reprobado";
+        }
+        else
+        {
+            if(promedio >= 7 && proyecto == 1)
+                estado = "Aprobado";
+            else if(promedio >= 5 && promedio < 7)
+                estado = "Recuperacion";
+            else
+                estado = "Reprobado";
+        }
+
+        if(proyecto == 0 && estado == "Aprobado")
+            estado = "Recuperacion";
+    }
+
+    if(n1 == 10 || n2 == 10 || n3 == 10)
+    {
+        if(n1 < 4) cont++;
+        if(n2 < 4) cont++;
+        if(n3 < 4) cont++;
+
+        if(cont >= 2)
+            obs_rendimiento = "Rendimiento irregular";
+    }
+
+    if(n1 >= 9 && n2 >= 9 && n3 >= 9 && asistencia >= 95)
+        estado = "Aprobado con felicitacion";
+
+    cout<<"Promedio: "<<promedio<<endl;
+    cout<<"Estado: "<<estado<<endl;
+    cout<<"Disciplina: "<<obs_disciplina<<endl;
+    cout<<"Rendimiento: "<<obs_rendimiento<<endl;
+
+    return 0;
+}
