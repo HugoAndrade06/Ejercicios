@@ -1,1 +1,98 @@
+#include<iostream>
+using namespace std;
 
+int main()
+{
+    float promedio, asistencia, ingresos;
+    int materias;
+    int proyectos;
+
+    string resultado, razon_academica, razon_economica, observacion;
+
+    cout<<"Ingrese promedio: ";
+    cin>>promedio;
+
+    cout<<"Ingrese materias perdidas: ";
+    cin>>materias;
+
+    cout<<"Ingrese asistencia: ";
+    cin>>asistencia;
+
+    cout<<"Ingrese ingresos: ";
+    cin>>ingresos;
+
+    cout<<"Participa en proyectos (1 si, 0 no): ";
+    cin>>proyectos;
+
+    if(asistencia < 80)
+    {
+        resultado = "Sin beneficio";
+        razon_academica = "Baja asistencia";
+    }
+    else
+    {
+        if(promedio < 7)
+        {
+            resultado = "Sin beneficio";
+            razon_academica = "Promedio bajo";
+        }
+        else
+        {
+            if(promedio >= 9 && asistencia >= 90 && materias == 0)
+            {
+                resultado = "Beca completa";
+                razon_academica = "Alto rendimiento";
+            }
+            else
+            {
+                if(promedio >= 8 && promedio < 9 && asistencia >= 85)
+                {
+                    resultado = "Beca parcial";
+                    razon_academica = "Buen rendimiento";
+                }
+                else
+                {
+                    resultado = "Ayuda de materiales";
+                    razon_academica = "Rendimiento medio";
+                }
+            }
+        }
+    }
+
+    if(ingresos < 500)
+        razon_economica = "Bajos ingresos";
+    else
+        razon_economica = "Ingresos normales";
+
+    if(proyectos == 1 && ingresos < 500)
+    {
+        if(resultado == "Ayuda de materiales")
+        {
+            resultado = "Beca parcial";
+            observacion = "Sube por proyectos e ingresos bajos";
+        }
+        else
+        {
+            if(resultado == "Beca parcial" && materias == 0)
+            {
+                resultado = "Beca completa";
+                observacion = "Sube por proyectos e ingresos bajos";
+            }
+            else
+            {
+                observacion = "No aplica mejora";
+            }
+        }
+    }
+    else
+    {
+        observacion = "Sin mejora";
+    }
+
+    cout<<"Resultado: "<<resultado<<endl;
+    cout<<"Razon academica: "<<razon_academica<<endl;
+    cout<<"Razon economica: "<<razon_economica<<endl;
+    cout<<"Observacion: "<<observacion<<endl;
+
+    return 0;
+}
