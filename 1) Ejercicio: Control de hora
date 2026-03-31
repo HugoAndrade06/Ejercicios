@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int hora, minutos, segundos;
+    char opcion;
+
+    cout << "Ingrese la hora: ";
+    cin >> hora;
+    cout << "Ingrese los minutos: ";
+    cin >> minutos;
+    cout << "Ingrese los segundos: ";
+    cin >> segundos;
+
+    do {
+        cout << "\nHora registrada: "
+             << hora << ":" << minutos << ":" << segundos << endl;
+
+        cout << "¿Desea cambiar la hora? (s/n): ";
+        cin >> opcion;
+
+        if (opcion == 's' || opcion == 'S') {
+            cout << "\nIngrese nueva hora: ";
+            cin >> hora;
+            cout << "Ingrese nuevos minutos: ";
+            cin >> minutos;
+            cout << "Ingrese nuevos segundos: ";
+            cin >> segundos;
+        }
+
+    } while (opcion == 's' || opcion == 'S');
+
+    cout << "\nPrograma finalizado." << endl;
+
+    return 0;
+}
