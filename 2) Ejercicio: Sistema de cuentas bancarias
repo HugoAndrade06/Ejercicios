@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+
+int leerNumeroCuentas() {
+    int n;
+    do {
+        cout << "Numero de cuentas (1-3): ";
+        cin >> n;
+    } while (n < 1 || n > 3);
+    return n;
+}
+
+float leerSaldo() {
+    float s;
+    do {
+        cout << "Saldo inicial: ";
+        cin >> s;
+    } while (s < 0);
+    return s;
+}
+
+int seleccionarCuenta(int n) {
+    int c;
+    do {
+        cout << "Seleccione cuenta (1-" << n << "): ";
+        cin >> c;
+    } while (c < 1 || c > n);
+    return c - 1;
+}
+
+float leerMontoEnvio(float saldo) {
+    float m;
+    do {
+        cout << "Monto: ";
+        cin >> m;
+    } while (m < 0 || m > saldo);
+    return m;
+}
+
+float leerMonto() {
+    float m;
+    do {
+        cout << "Monto: ";
+        cin >> m;
+    } while (m < 0);
+    return m;
+}
+
+int menu() {
+    int op;
+    cout << "\n1. Ver saldo\n2. Enviar dinero\n3. Recibir dinero\n4. Transferir\n5. Salir\nOpcion: ";
+    cin >> op;
+    return op;
+}
+
+int seleccionarDestino(int n, int origen) {
+    int d;
+    do {
+        cout << "Cuenta destino (1-" << n << "): ";
+        cin >> d;
+    } while (d < 1 || d > n || d - 1 == origen);
+    return d - 1;
+}
+
+int main() {
+    string dni;
+    int n, opcion, cuenta, destino;
+    float cuentas[3], monto;
+
+    cout << "Ingrese DNI: ";
+    cin >> dni;
+
+    n = leerNumeroCuentas();
+
+    for (int i = 0; i < n; i++) {
+        cuentas[i] = leerSaldo();
+    }
+
+    cuenta = seleccionarCuenta(n);
+
+    do {
+        opcion = menu();
+
+        switch (opcion) {
+            case 1:
+                cout << "Saldo: " << cuentas[cuenta] << endl;
+                break;
+
+            case 2:
+                monto = leerMontoEnvio(cuentas[cuenta]);
+                cuentas[cuenta] -= monto;
+                cout << "Envio realizado\n";
+                break;
+
+            case 3:
+                monto = leerMonto();
+                cuentas[cuenta] += monto;
+                cout << "Deposito realizado\n";
+                break;
+
+            case 4:
+                destino = seleccionarDestino(n, cuenta);
+                monto = leerMontoEnvio(cuentas[cuenta]);
+                cuentas[cuenta] -= monto;
+                cuentas[destino] += monto;
+                cout << "Transferencia realizada\n";
+                break;
+        }
+
+    } while (opcion != 5);
+
+    return 0;
+}
