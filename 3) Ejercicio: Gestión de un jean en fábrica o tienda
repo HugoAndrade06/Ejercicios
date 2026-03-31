@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Jean {
+public:
+    string codigo;
+    string color;
+    string talla;
+    bool fueTenido;
+    int cantTenidos;
+    float precio;
+    int cantBotones;
+    float humedad;
+    string estadoTela;
+
+    void mostrarDatos() {
+        cout << "\n--- DATOS DEL JEAN ---" << endl;
+        cout << "Codigo: " << codigo << endl;
+        cout << "Color: " << color << endl;
+        cout << "Talla: " << talla << endl;
+        cout << "Cantidad de tenidos: " << cantTenidos << endl;
+        cout << "Precio: $" << precio << endl;
+        cout << "Botones: " << cantBotones << endl;
+        cout << "Humedad: " << humedad << "%" << endl;
+        cout << "Estado: " << estadoTela << endl;
+        cout << "----------------------\n" << endl;
+    }
+
+    void lavar() {
+        if (cantTenidos > 0) {
+            cantTenidos--;
+            cout << ">> Se ha lavado el jean. Los tenidos bajaron a: " << cantTenidos << endl;
+        } else {
+            cout << ">> El jean ya no tiene mas procesos de tenido que perder." << endl;
+        }
+    }
+
+    
+    void secar() {
+        if (humedad > 0) {
+            humedad = 0;
+            cout << ">> El jean se ha secado completamente (0% humedad)." << endl;
+        } else {
+            cout << ">> El jean ya esta seco." << endl;
+        }
+    }
+};
+
+int main() {
+    Jean miJean;
+    int opcion;
+    char respuestaTenido;
+
+    cout << "REGISTRO DE NUEVO JEAN" << endl;
+    cout << "Codigo: "; cin >> miJean.codigo;
+    cout << "Color: "; cin >> miJean.color;
+    cout << "Talla: "; cin >> miJean.talla;
+    cout << "Fue tenido? (s/n): "; cin >> respuestaTenido;
+    miJean.fueTenido = (respuestaTenido == 's' || respuestaTenido == 'S');
+    cout << "Cantidad de tenidos: "; cin >> miJean.cantTenidos;
+    cout << "Precio: "; cin >> miJean.precio;
+    cout << "Cantidad de botones: "; cin >> miJean.cantBotones;
+    cout << "Humedad (%): "; cin >> miJean.humedad;
+    cout << "Estado de la tela: "; cin.ignore(); getline(cin, miJean.estadoTela);
+
+    do {
+        cout << "\nGESTION DE JEAN - MENU" << endl;
+        cout << "1. Mostrar Datos" << endl;
+        cout << "2. Lavar" << endl;
+        cout << "3. Secar" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+
+        switch(opcion) {
+            case 1: miJean.mostrarDatos(); break;
+            case 2: miJean.lavar(); break;
+            case 3: miJean.secar(); break;
+            case 4: cout << "Saliendo del programa..." << endl; break;
+            default: cout << "Opcion no valida." << endl;
+        }
+    } while (opcion != 4);
+
+    return 0;
+}
