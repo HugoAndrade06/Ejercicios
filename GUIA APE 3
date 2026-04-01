@@ -1,0 +1,132 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    char repetir;
+
+    do {
+        int N;
+        do {
+            cout << "Ingrese numero de estudiantes: ";
+            cin >> N;
+        } while (N <= 0);
+
+        // Contadores y acumuladores
+        int contA = 0, contB = 0, contC = 0;
+        int excelente = 0, muyBueno = 0, bueno = 0, riesgo = 0, reprobado = 0;
+        int repNota = 0, repAsistencia = 0;
+        int estables = 0, inestables = 0;
+
+        float sumaGeneral = 0;
+        float sumaA = 0, sumaB = 0, sumaC = 0;
+
+        float mayor = -1, menor = 11;
+        string nomMayor, nomMenor;
+
+        for (int i = 0; i < N; i++) {
+            string nombre;
+            char paralelo;
+            float n1, n2, pract, asistencia;
+
+            cout << "\nEstudiante " << i + 1 << endl;
+
+            cout << "Nombre: ";
+            cin >> nombre;
+
+            do {
+                cout << "Paralelo (A/B/C): ";
+                cin >> paralelo;
+            } while (paralelo != 'A' && paralelo != 'B' && paralelo != 'C');
+
+            do {
+                cout << "Nota 1: "; cin >> n1;
+            } while (n1 < 0 || n1 > 10);
+
+            do {
+                cout << "Nota 2: "; cin >> n2;
+            } while (n2 < 0 || n2 > 10);
+
+            do {
+                cout << "Practicas: "; cin >> pract;
+            } while (pract < 0 || pract > 10);
+
+            do {
+                cout << "Asistencia (%): "; cin >> asistencia;
+            } while (asistencia < 0 || asistencia > 100);
+
+            float promedio = n1 * 0.3 + n2 * 0.3 + pract * 0.4;
+            sumaGeneral += promedio;
+
+            // Por paralelo
+            if (paralelo == 'A') { contA++; sumaA += promedio; }
+            if (paralelo == 'B') { contB++; sumaB += promedio; }
+            if (paralelo == 'C') { contC++; sumaC += promedio; }
+
+            // Mayor y menor
+            if (promedio > mayor) { mayor = promedio; nomMayor = nombre; }
+            if (promedio < menor) { menor = promedio; nomMenor = nombre; }
+
+            // Estabilidad
+            if (n1 == n2 && n2 == pract) estables++;
+            float max = n1, min = n1;
+            if (n2 > max) max = n2;
+            if (pract > max) max = pract;
+            if (n2 < min) min = n2;
+            if (pract < min) min = pract;
+
+            if ((max - min) > 4) inestables++;
+
+            // Clasificación
+            string estado;
+
+            if (asistencia < 70) {
+                estado = "Reprobado por asistencia";
+                repAsistencia++;
+            } else {
+                if (promedio >= 9) { excelente++; estado = "Excelente"; }
+                else if (promedio >= 8) { muyBueno++; estado = "Muy bueno"; }
+                else if (promedio >= 7) { bueno++; estado = "Bueno"; }
+                else if (promedio >= 6) { riesgo++; estado = "En riesgo"; }
+                else { reprobado++; repNota++; estado = "Reprobado"; }
+            }
+
+            // Alerta
+            if (promedio >= 9 && asistencia < 80)
+                cout << "⚠ Alerta academica\n";
+
+            cout << "Promedio: " << promedio << " - " << estado << endl;
+        }
+
+        // Reporte
+        cout << "\n--- REPORTE ---\n";
+        cout << "Total: " << N << endl;
+        cout << "Paralelo A: " << contA << " B: " << contB << " C: " << contC << endl;
+
+        cout << "Excelente: " << excelente << " Muy bueno: " << muyBueno
+             << " Bueno: " << bueno << " Riesgo: " << riesgo
+             << " Reprobado: " << reprobado << endl;
+
+        cout << "Reprobados por nota: " << repNota << endl;
+        cout << "Reprobados por asistencia: " << repAsistencia << endl;
+
+        float promGeneral = sumaGeneral / N;
+        cout << "Promedio general: " << promGeneral << endl;
+
+        if (contA > 0) cout << "Prom A: " << sumaA / contA << endl;
+        if (contB > 0) cout << "Prom B: " << sumaB / contB << endl;
+        if (contC > 0) cout << "Prom C: " << sumaC / contC << endl;
+
+        cout << "Mayor promedio: " << mayor << " (" << nomMayor << ")" << endl;
+        cout << "Menor promedio: " << menor << " (" << nomMenor << ")" << endl;
+
+        cout << "Aprobados (%): " << ((float)(N - repNota - repAsistencia) / N) * 100 << endl;
+        cout << "Estables (%): " << (float)estables / N * 100 << endl;
+        cout << "Inestables (%): " << (float)inestables / N * 100 << endl;
+
+        cout << "\n¿Repetir proceso? (s/n): ";
+        cin >> repetir;
+
+    } while (repetir == 's' || repetir == 'S');
+
+    return 0;
+}
