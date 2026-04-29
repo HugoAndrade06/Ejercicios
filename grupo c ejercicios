@@ -1,0 +1,35 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main() {
+    ifstream archivo("notas.txt");
+    string nombre;
+    float n1, n2, n3, promedio;
+
+    if (!archivo) {
+        cout << "No se pudo abrir el archivo notas.txt" << endl;
+        return 1;
+    }
+
+    cout << "Resultados:\n" << endl;
+
+    // Leer línea por línea
+    while (archivo >> nombre >> n1 >> n2 >> n3) {
+        promedio = (n1 + n2 + n3) / 3.0;
+
+        cout << "Nombre: " << nombre << endl;
+        cout << "Promedio: " << promedio << endl;
+
+        if (promedio >= 7) {
+            cout << "Estado: Aprobado" << endl;
+        } else {
+            cout << "Estado: Reprobado" << endl;
+        }
+        cout << "-------------------------" << endl;
+    }
+
+    archivo.close();
+    return 0;
+}
