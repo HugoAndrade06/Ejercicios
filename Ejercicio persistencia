@@ -1,0 +1,88 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+// Estructura para almacenar los datos de un estudiante
+struct Estudiante {
+    string nombre;
+    int edad;
+    string carrera;
+    float promedio;
+};
+
+// Función para registrar un estudiante y guardar en archivo
+void registrarEstudiante() {
+    Estudiante e;
+
+    // Ingreso de datos
+    cout << "Ingrese nombre: ";
+    getline(cin, e.nombre);
+
+    cout << "Ingrese edad: ";
+    cin >> e.edad;
+    cin.ignore(); // limpiar buffer
+
+    // Validación de edad
+    if (e.edad <= 0) {
+        cout << "Edad invalida." << endl;
+        return;
+    }
+
+    cout << "Ingrese carrera: ";
+    getline(cin, e.carrera);
+
+    cout << "Ingrese promedio: ";
+    cin >> e.promedio;
+    cin.ignore();
+
+    // Validación de promedio
+    if (e.promedio < 0 || e.promedio > 10) {
+        cout << "Promedio invalido." << endl;
+        return;
+    }
+
+    // Apertura de archivo en modo append (ios::app)
+    ofstream archivo("estudiantes.txt", ios::app);
+    if (!archivo) {
+        cout << "Error al abrir el archivo." << endl;
+        return;
+    }
+
+    // Escritura de datos en archivo
+    archivo << e.nombre << ", "
+            << e.edad << ", "
+            << e.carrera << ", "
+            << e.promedio << endl;
+
+    // Cierre del archivo
+    archivo.close();
+
+    cout << "Registro guardado correctamente." << endl;
+}
+
+// Función para mostrar menú interactivo
+void mostrarMenu() {
+    int opcion;
+    do {
+        cout << "\n--- MENU ---\n";
+        cout << "1. Registrar estudiante\n";
+        cout << "2. Salir\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore(); // limpiar buffer
+
+        // Control de flujo con switch
+        switch (opcion) {
+            case 1: registrarEstudiante(); break;
+            case 2: cout << "Saliendo..." << endl; break;
+            default: cout << "Opcion invalida." << endl;
+        }
+    } while (opcion != 2); // repetir hasta que elija salir
+}
+
+// Función principal
+int main() {
+    mostrarMenu(); // iniciar menú
+    return 0;
+}
